@@ -11,6 +11,7 @@ function NoPageFound() {
                <AiOutlineExclamationCircle  />
             </IconContext.Provider>
             <p className='text-center text-6xl font-medium  mt-5'>Sorry No Page Found</p>
+            <p> hello</p>
 
       </div>
     </section>
