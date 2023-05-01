@@ -9,7 +9,7 @@ const authenticate = require("../middlewares/authenticate")
     @DOCX allows user to upload video
     @ACCESS private
 */
-router.post("/upload-video",authenticate,file.single("video"),(req,res)=>{
+router.post("/upload-image",authenticate,file.single("image"),(req,res)=>{
     const {filename:fileName} = req.file;
 
     res.json({"fileName":fileName});
