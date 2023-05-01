@@ -23,8 +23,8 @@ function Index() {
 
   useEffect(() => {
     if (file != null) {
-      if (!file.type.match(/video\/*/)) {
-        toast.error("you dropped invlid file only video files supported");
+      if (!file.type.match(/image\/*/)) {
+        toast.error("you dropped invalid file only image files supported");
         setFile(null);
       }
       else {
@@ -68,7 +68,7 @@ function Index() {
                      }
         >
 
-          {!showAlert && <h2 className='text-2xl text-center font-semibold h-auto'>Upload Your Video File Here</h2>}
+          {!showAlert && <h2 className='text-2xl text-center font-semibold h-auto'>Upload Your Image File Here</h2>}
 
 
           {!showAlert ? <FileUploadForm

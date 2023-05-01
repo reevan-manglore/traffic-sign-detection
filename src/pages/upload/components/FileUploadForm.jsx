@@ -45,7 +45,7 @@ function FileUploadForm({ dragActive, setDragActive,file,setFile }) {
     <form className='h-full w-full flex flex-col justify-center items-center' onDragEnter={handleDrag} onDragOver={handleDrag} onDrop={handleDrop} onSubmit={(e) => e.preventDefault()}>
       <input
         type="file"
-        accept="video/*"
+        accept="image/*"
         name="input-file-upload"
         id="input-file-upload"
         multiple = {true}

@@ -10,11 +10,8 @@ function Index() {
                 <Navbar />
             </div>
             <div className='flex-grow  h-full grid place-items-center '>
-                <video width="640" height="480" className='rounded overflow-hidden' controls autoPlay={true}>
-                    <source src={`http://localhost:3000/video/${fileName}`} type="video/mp4" />
-
-                    Your browser does not support the video tag.
-                </video>
+                <img src={`http://localhost:3000/video/${fileName}`} width="500" height="480" className='rounded overflow-hidden'/>
+                   
             </div>
         </section>
     )
