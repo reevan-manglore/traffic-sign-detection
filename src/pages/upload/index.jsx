@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../../assets/background.svg"
+import { useSelector } from 'react-redux';
 
+import { userAuthToken } from '../../store/slices/authSlice';
 
 import Navbar from '../../components/Navbar';
 import FileUploadForm from './components/FileUploadForm';
 import Alert from './Alert';
 import FileInfo from './components/FileInfo';
 import { uploadVideo } from '../../services/upload';
+import backgroundImage from "../../assets/background.svg"
+
 
 
 function Index() {
@@ -16,6 +19,7 @@ function Index() {
   const [file, setFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const authToken = useSelector(userAuthToken);
 
   useEffect(() => {
     if (file != null) {
@@ -43,7 +47,7 @@ function Index() {
           message={`Continue with file named \n ${file.name}`}
           onAccept={async () => {
             setShowAlert(false);
-            const resData = await uploadVideo(file);
+            const resData = await uploadVideo(file,authToken);
             navigate(`/result/${resData.data["fileName"]}`);
             
           }}
@@ -61,7 +65,7 @@ function Index() {
                      ${dragActive === false ? "hover:ring-4 hover:ring-primary hover:ring-opacity-75" : ""}
                      ${dragActive ? "moving-border  border-none" : ""}
                      `
-          }
+                     }
         >
 
           {!showAlert && <h2 className='text-2xl text-center font-semibold h-auto'>Upload Your Video File Here</h2>}

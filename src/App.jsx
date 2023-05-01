@@ -5,6 +5,9 @@ import { Provider } from "react-redux"
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from "./store/index"
 
+import ProtectedRoutes from './components/ProtectedRoutes';
+import Navbar from './components/Navbar';
+
 import SignUp from "./pages/authentication/signup/index.jsx"
 import Login from "./pages/authentication/login/index.jsx"
 import Upload from "./pages/upload/index.jsx";
@@ -32,10 +35,13 @@ function App() {
             theme='dark'
           />
           <Routes>
-            <Route path="/" element={<Upload />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/result/:fileName" element={<Result />} />
+            <Route  element = {<ProtectedRoutes/>}>
+        
+              <Route path='/' element={<Upload />} />
+              <Route path="/result/:fileName" element={<Result />} />
+            </Route>
             <Route path="*" element={<NoPageFound />} />
           </Routes>
 

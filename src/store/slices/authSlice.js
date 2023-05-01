@@ -15,7 +15,7 @@ export const signup = createAsyncThunk(
 
         try {
             const res = await fetch(
-                `${import.meta.env.VITE_PUBLIC_HOST}/api/signup`,
+                `${import.meta.env.VITE_BACKEND_HOST}/api/auth/signup`,
                 {
                     method: "POST",
                     headers: {
@@ -26,7 +26,7 @@ export const signup = createAsyncThunk(
             );
             if (res.status != 200) {
                 const responseData = await res.json();
-                throw new Error(responseData["data"]);
+                throw new Error(responseData["error"]);
             }
             const resData = await res.json();
             return { "name":resData["data"].name, "token": resData["data"].token }
@@ -41,8 +41,9 @@ export const signup = createAsyncThunk(
 export const login = createAsyncThunk(
     "auth/login",
     async ({ email, password }, { rejectWithValue }) => {
+        console.log("login dispatched");
         try {
-            const res = await fetch(`${import.meta.env.VITE_PUBLIC_HOST}/api/login`, 
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_HOST}/api/auth/login`, 
                         { 
                             method: "POST" ,
                             headers:{
@@ -54,12 +55,13 @@ export const login = createAsyncThunk(
                     );
             if(res.status!=200){
                 const resData = await res.json(); 
-                throw new Error(resData["data"]);
+                throw new Error(resData["error"]);
             }
             const resData = await res.json();
             return {name:resData["data"].name,"token":resData["data"].token}
         }
         catch (e) {
+            console.log(`login failed with message ${e.message}`);
             return rejectWithValue(e.message);
         }
 
@@ -116,10 +118,11 @@ const AuthSlice = createSlice(
 )
 
 
-export const authProcessStatus = (state) => state.auth?.status;
-export const loggedInStatus = (state) => state.auth?.isLoggedIn;
-export const user = (state) => state.auth?.user;
-export const errorMessage = (state) => state.auth?.error;
+export const authProcessStatus = (state) => state.status;
+export const loggedInStatus = (state) => state.isLoggedIn;
+export const user = (state) => state.user;
+export const userAuthToken = (state)=>state.user.token;
+export const errorMessage = (state) => state.error;
 
 export const {logout} = AuthSlice.actions;
 export default AuthSlice.reducer;
